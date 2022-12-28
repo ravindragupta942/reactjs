@@ -1,13 +1,9 @@
-import './Home.css';
 import { useState, useEffect } from 'react';
-import Header from '../Header/Header'
-import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
-
-function Home() {
+import Header from '../Header/Header';
+import './LogIn.css';
+function LogIn() {
 
     let userData;
-    const navigate = useNavigate();
 
     useEffect(() => {
         const data = localStorage.getItem('userList');
@@ -28,37 +24,24 @@ function Home() {
     }
 
     const logIn = () => {
-        const data = localStorage.getItem('userList');
-        if (data) {
-            userData = JSON.parse(data);
-        } else {
-            alert('There is not any user please sign up first!');
-            return;
-        }
-        let isUser = userData.filter(user => { return user.mobile == mobile && user.password == password });
-        if (isUser && isUser.length) {
-            navigate('/user-list');
-        } else {
-            alert('user id not match!');
-        }
+        let a = userData.filter(user => user.find(data => data.mobile == mobile));
+        console.log('check a', a);
     }
 
     return (
-        <div className="home">
+        <div>
             <Header />
             <div className="container">
                 <center><h1> LogIn</h1></center>
+                {/* <form> */}
                 Mobile No.:
                 <input type="number" name="mobile" onChange={handleValue} /><br /><br />
                 Password :
                 <input type="password" name="password" onChange={handleValue} /><br /><br />
                 <button onClick={logIn}>Log In</button>
-                <div>
-                    <Link to="/SignUp">SignUp</Link>
-                </div>
+                {/* </form> */}
             </div>
         </div>
     );
 }
-
-export default Home;
+export default LogIn;
